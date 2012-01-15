@@ -1,11 +1,11 @@
 (function() {
-  describe("SCTi.View", function() {
+  describe("EmTi.View", function() {
     it("should be defined", function() {
-      expect(SCTi.View).toBeDefined();
+      expect(EmTi.View).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.View", function() {
-      var view = SCTi.View.create(), tiObject;
+      var view = EmTi.View.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -13,7 +13,7 @@
     });
     
     it("should only create a Ti.UI.View once", function() {
-      var view = SCTi.View.create(), tiObject1, tiObject2;
+      var view = EmTi.View.create(), tiObject1, tiObject2;
       
       tiObject1 = view.createObject();
       tiObject2 = view.createObject();
@@ -22,25 +22,25 @@
     });
     
     it("should store the Titanium view in the tiObject property", function() {
-      var view = SCTi.View.create(), tiObject;
+      var view = EmTi.View.create(), tiObject;
       view.createObject();
       tiObject = view.get('tiObject');
       expect(tiObject).toBeDefined();
     });
     
     it("should be able to add childViews", function() {
-      var view = SCTi.View.create();
+      var view = EmTi.View.create();
       
       expect(view.childViews.length).toEqual(0);
     
-      view.add(SCTi.View.create());
+      view.add(EmTi.View.create());
       expect(view.childViews.length).toEqual(1);
     });
 
     it("should render childViews when displayed", function() {
-      var view = SCTi.View.create({
+      var view = EmTi.View.create({
         childViews: [
-          SCTi.View.create()
+          EmTi.View.create()
         ]
       });
       
@@ -59,8 +59,8 @@
     });
     
     it("should be able to add childViews after render", function() {
-      var view = SCTi.View.create(),
-          childView = SCTi.View.create();
+      var view = EmTi.View.create(),
+          childView = EmTi.View.create();
       
       view.render();
 
@@ -70,8 +70,8 @@
     });
     
     it("should sync bindings before display", function() {
-      var view = SCTi.View.create({
-        content: SC.Object.create({value: "OHAI"}),
+      var view = EmTi.View.create({
+        content: Em.Object.create({value: "OHAI"}),
         valueBinding: "content.value"
       });
       
@@ -83,7 +83,7 @@
     });
     
     it("should pass along tiOptions", function() {
-      var view = SCTi.View.create({
+      var view = EmTi.View.create({
         backgroundColor: 'white'
       });
       
@@ -91,7 +91,7 @@
     });
     
     it("should register event listeners", function() {
-      var view = SCTi.Object.create({
+      var view = EmTi.Object.create({
         tiEvents: 'click'.w(),
         click: function() {}
       });
@@ -109,7 +109,7 @@
     });
     
     it("should register renamed event listeners", function() {
-      var openedWasCalled = false, view = SCTi.Object.create({
+      var openedWasCalled = false, view = EmTi.Object.create({
         tiEvents: 'open:opened',
         opened: function() { openedWasCalled = true; }
       });
@@ -131,7 +131,7 @@
     });
 
     it("should register observers", function() {
-      var view = SCTi.View.create({
+      var view = EmTi.View.create({
         width: 100
       });
       
@@ -140,13 +140,13 @@
 
       view.set("width", 200);
 
-      SC.run(function() {
+      Em.run(function() {
         expect(tiObject.width).toEqual(200);
       });
     });
 
     it("should translate constants", function() {
-      var constantValue = 123, MyObject = SCTi.Object.extend({
+      var constantValue = 123, MyObject = EmTi.Object.extend({
         tiOptions: "borderStyle:borderStyleConstant",
         tiConstantMappings: {
           borderStyle: {
@@ -160,7 +160,7 @@
     });
     
     it("should passthrough constants", function() {
-      var constantValue = 123, MyObject = SCTi.Object.extend({
+      var constantValue = 123, MyObject = EmTi.Object.extend({
         tiOptions: "borderStyle:borderStyleConstant"
       }), obj = MyObject.create({borderStyle: constantValue});
       
@@ -169,7 +169,7 @@
     });
     
     it("should apply any property changes after tiObject is created", function() {
-      var TestObject = SCTi.Object.extend({
+      var TestObject = EmTi.Object.extend({
         tiOptions: "first second".w(),
         createTiObject: function(options) {
           return options;

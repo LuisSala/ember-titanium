@@ -2,9 +2,9 @@
   Ti.include('/tests/lib/jasmine-1.0.2.js');
   Ti.include('/tests/lib/jasmine-titanium.js');
   
-  describe("SCTi", function() {
+  describe("EmTi", function() {
     it("namespace should be defined", function() {
-      expect(SCTi).toBeDefined();
+      expect(EmTi).toBeDefined();
     });
   
     

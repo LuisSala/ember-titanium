@@ -1,24 +1,24 @@
 var window = this;
-Ti.include('/lib/sproutcore-runtime.js');
+Ti.include('/lib/ember-runtime.js');
 console.log = console.info = console.warn = console.error = Ti.API.info;
 
-var queues = SC.run.queues;
+var queues = Em.run.queues;
 queues.insertAt(queues.indexOf('actions')+1, 'render');
 
 (function() {
-  var get = SC.get, set = SC.set;
+  var get = Em.get, set = Em.set;
   
-  SCTi = {};
+  EmTi = {};
   
   // Constants
-  SCTi.AUTOCAPITALIZATION_CONSTANTS = {
+  EmTi.AUTOCAPITALIZATION_CONSTANTS = {
     all: Ti.UI.TEXT_AUTOCAPITALIZATION_ALL,
     none: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
     sentences: Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES,
     words: Ti.UI.TEXT_AUTOCAPITALIZATION_WORDS
   };
   
-  SCTi.KEYBOARD_TYPE_CONSTANTS = {
+  EmTi.KEYBOARD_TYPE_CONSTANTS = {
     ascii: Ti.UI.KEYBOARD_ASCII,
     'default': Ti.UI.KEYBOARD_DEFAULT,
     email: Ti.UI.KEYBOARD_EMAIL,
@@ -29,7 +29,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     url: Ti.UI.KEYBOARD_URL
   };
   
-  SCTi.RETURNKEY_CONSTANTS = {
+  EmTi.RETURNKEY_CONSTANTS = {
     'default': Ti.UI.RETURNKEY_DEFAULT,
     done: Ti.UI.RETURNKEY_DONE,
     emergency_call: Ti.UI.RETURNKEY_EMERGENCY_CALL,
@@ -44,7 +44,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
   };
   
   // Mixins
-  SCTi.Animatable = SC.Mixin.create({
+  EmTi.Animatable = Em.Mixin.create({
     animate: function(scAnimation) {
       this.render();
       scAnimation.render();
@@ -54,7 +54,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Openable = SC.Mixin.create({
+  EmTi.Openable = Em.Mixin.create({
     open: function(options) {
       this.render();
       get(this, 'tiObject').open(options);
@@ -70,7 +70,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Hideable = SC.Mixin.create({
+  EmTi.Hideable = Em.Mixin.create({
     hide: function() {
       this.render();
       get(this, 'tiObject').hide();
@@ -86,7 +86,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Focusable = SC.Mixin.create({
+  EmTi.Focusable = Em.Mixin.create({
     tiEvents: 'focus:focused blur:blurred'.w(),
     
     blur: function() {
@@ -105,7 +105,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
   });
   
   // SproutCore Wrapped Titanium Objects
-  SCTi.Object = SC.Object.extend({
+  EmTi.Object = Em.Object.extend({
     tiObject: null,
     tiOptions: [],
     tiEvents: [],
@@ -145,7 +145,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
       
       if (get(this, 'isRendered')) { return this; }
       
-      SC.run.sync(); // FIXME: is this okay?
+      Em.run.sync(); // FIXME: is this okay?
       
       this.registerEvents();
       
@@ -205,7 +205,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
           tiOptionName = optionName.split(':')[0];
         }
         // Assign the Ti Object if the value is an SC wrapped Ti Object
-        if (optionVal instanceof SCTi.Object) {
+        if (optionVal instanceof EmTi.Object) {
           optionVal.render();
           tiObjectOptions[tiOptionName] = get(optionVal, 'tiObject'); 
         } else {
@@ -229,7 +229,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
           }
         };
 
-        SC.addObserver(self, optionName, observer);
+        Em.addObserver(self, optionName, observer);
       });
     },
     
@@ -250,7 +250,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.View = SCTi.Object.extend(SCTi.Animatable, SCTi.Hideable, {
+  EmTi.View = EmTi.Object.extend(EmTi.Animatable, EmTi.Hideable, {
     tiOptions: 'anchorPoint animatedCenterPoint backgroundColor backgroundDisabledColor backgroundDisabledImage backgroundFocusedColor backgroundFocusedImage backgroundGradient backgroundImage backgroundLeftCap backgroundSelectedColor backgroundSelectedImage backgroundTopCap borderColor borderRadius borderWidth bottom center focusable font fontFamily fontSize fontStyle fontWeight height layout left opacity right size softKeyboardOnFocus top touchEnabled transform visible width zIndex'.w(),
     tiEvents: 'click dblclick doubletap singletap swipe touchcancel touchend touchmove touchstart twofingertap'.w(),
     
@@ -302,7 +302,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Window = SCTi.View.extend(SCTi.Openable, {
+  EmTi.Window = EmTi.View.extend(EmTi.Openable, {
     tiOptions: 'backButtonTitle backButtonTitleImage barColor barImage exitOnClose fullscreen leftNavButton modal navBarHidden orientationModes rightNavButton tabBarHidden title titleControl titleImage titlePrompt titleid titlepromptid toolbar translucent url windowSoftInputMode'.w(),
     tiEvents: 'android:back android:camera android:focus android:search android:voldown android:volup blur close:closed focus open:opened'.w(),
     
@@ -311,7 +311,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Label = SCTi.View.extend({
+  EmTi.Label = EmTi.View.extend({
     tiOptions: 'autoLink backgroundPaddingBottom backgroundPaddingLeft backgroundPaddingRight backgroundPaddingTop color ellipsize font highlightedColor html minimumFontSize shadowColor shadowOffset text textAlign:textAlignConstant textid wordWrap'.w(),
     tiConstantMappings: {
       textAlign: {
@@ -326,11 +326,11 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.TextField = SCTi.View.extend(SCTi.Focusable, {
+  EmTi.TextField = EmTi.View.extend(EmTi.Focusable, {
     tiOptions: 'autocapitalization:autocapitalizationConstant autocorrect borderStyle:borderStyleConstant clearButtonMode:clearButtonModeConstant clearOnEdit color editable enabled hintText keyboardToolbar keyboardToolbarColor keyboardToolbarHeight keyboardType:keyboardTypeConstant leftButton leftButtonMode leftButtonPadding minimumFontSize paddingLeft paddingRight passwordMask returnKeyType:returnKeyTypeConstant rightButton rightButtonMode rightButtonPadding suppressReturn value verticalAlign:verticalAlignConstant'.w(),
     tiEvents: 'change hasText return'.w(),
     tiConstantMappings: {
-      autocapitalization: SCTi.AUTOCAPITALIZATION_CONSTANTS,
+      autocapitalization: EmTi.AUTOCAPITALIZATION_CONSTANTS,
       borderStyle: {
         none: Ti.UI.INPUT_BORDERSTYLE_NONE,
         line: Ti.UI.INPUT_BORDERSTYLE_LINE,
@@ -343,8 +343,8 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
         blur: Ti.UI.INPUT_BUTTONMODE_ONBLUR,
         focus: Ti.UI.INPUT_BUTTONMODE_ONFOCUS
       },
-      keyboardType: SCTi.KEYBOARD_TYPE_CONSTANTS,
-      returnKeyType: SCTi.RETURNKEY_CONSTANTS,
+      keyboardType: EmTi.KEYBOARD_TYPE_CONSTANTS,
+      returnKeyType: EmTi.RETURNKEY_CONSTANTS,
       verticalAlign: {
         bottom: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
         center: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
@@ -365,7 +365,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Button = SCTi.View.extend({
+  EmTi.Button = EmTi.View.extend({
     tiOptions: 'color enabled font image selectedColor style:styleConstant title titleid'.w(),
     tiConstantMappings: {
       style: {
@@ -381,7 +381,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Tab = SCTi.View.extend({
+  EmTi.Tab = EmTi.View.extend({
     tiOptions: 'badge icon title window'.w(),
     
     createTiObject: function(options) {
@@ -397,7 +397,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
 
-  SCTi.TabGroup = SCTi.View.extend(SCTi.Openable, {
+  EmTi.TabGroup = EmTi.View.extend(EmTi.Openable, {
     tiOptions: 'activeTab allowUserCustomization barColor editButtonTitle tabs windowSoftInputMode'.w(),
     tiEvents: 'blur close:closed focus open:opened'.w(),
     
@@ -417,7 +417,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.ImageView = SCTi.View.extend({
+  EmTi.ImageView = EmTi.View.extend({
     tiOptions: 'animating canScale decodeRetries defaultImage duration enableZoomControls hires image images paused preventDefaultImage repeatCount reverse'.w(),
     tiEvents: 'change load start stop'.w(),
     
@@ -426,13 +426,13 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
 
-  SCTi.TextArea = SCTi.View.extend(SCTi.Focusable, {
+  EmTi.TextArea = EmTi.View.extend(EmTi.Focusable, {
     tiOptions: 'autoLink autocapitalization:autocapitalizationConstant editable enabled keyboardToolbar keyboardToolbarColor keyboardToolbarHeight returnKeyType:returnKeyTypeConstant suppressReturn value'.w(),
     tiEvents: 'change return selected'.w(),
     tiConstantMappings: {
-      autocapitalization: SCTi.AUTOCAPITALIZATION_CONSTANTS,
-      keyboardType: SCTi.KEYBOARD_TYPE_CONSTANTS,
-      returnKeyType: SCTi.RETURNKEY_CONSTANTS 
+      autocapitalization: EmTi.AUTOCAPITALIZATION_CONSTANTS,
+      keyboardType: EmTi.KEYBOARD_TYPE_CONSTANTS,
+      returnKeyType: EmTi.RETURNKEY_CONSTANTS 
     },
     
     createTiObject: function(options) {
@@ -440,7 +440,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.AlertDialog = SCTi.Object.extend(SCTi.Hideable, {
+  EmTi.AlertDialog = EmTi.Object.extend(EmTi.Hideable, {
     tiOptions: 'buttonNames cancel message messageid title'.w(),
     tiEvents: 'click'.w(),
     
@@ -449,15 +449,15 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.Animation = SCTi.View.extend({
+  EmTi.Animation = EmTi.View.extend({
     tiOptions: 'autoreverse color curve:curveConstant delay duration opaque repeat transition'.w(),
     tiEvents: 'complete start'.w(),
     tiConstantMappings: {
       curve: {
-        easeIn: Ti.UI.ANIMATION_CURVE_EASE_IN,
-        easeInOut: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT,
-        easeOut: Ti.UI.ANIMATION_CURVE_EASE_OUT,
-        linear: Ti.UI.ANIMATION_CURVE_LINEAR
+        easeIn: Ti.UI.iOS.ANIMATION_CURVE_EASE_IN,
+        easeInOut: Ti.UI.iOS.ANIMATION_CURVE_EASE_IN_OUT,
+        easeOut: Ti.UI.iOS.ANIMATION_CURVE_EASE_OUT,
+        linear: Ti.UI.iOS.ANIMATION_CURVE_LINEAR
       }
     },
     
@@ -466,7 +466,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.MapView = SCTi.View.extend({
+  EmTi.MapView = EmTi.View.extend({
     tiOptions: 'animate annotations location mapType:mapTypeConstant region regionFit userLocation'.w(),
     tiEvents: 'complete error loading regionChanged'.w(),
     tiConstantMappings: {
@@ -486,7 +486,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     }
   });
   
-  SCTi.MapAnnotation = SCTi.View.extend({
+  EmTi.MapAnnotation = EmTi.View.extend({
     tiOptions: 'animate image latitude longitude leftButton leftView pinImage pincolor:pinColorConstant rightButton rightView subtitle subtitleid title titleid'.w(),
     tiConstantMappings: {
       pinColor: {

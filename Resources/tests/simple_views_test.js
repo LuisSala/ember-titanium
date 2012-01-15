@@ -1,11 +1,11 @@
 (function() {
-  describe("SCTi.Window", function() {
+  describe("EmTi.Window", function() {
     it("should be defined", function() {
-      expect(SCTi.Window).toBeDefined();
+      expect(EmTi.Window).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.Window", function() {
-      var view = SCTi.Window.create(), tiObject;
+      var view = EmTi.Window.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -13,13 +13,13 @@
     });
   });
 
-  describe("SCTi.Label", function() {
+  describe("EmTi.Label", function() {
     it("should be defined", function() {
-      expect(SCTi.Label).toBeDefined();
+      expect(EmTi.Label).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.Label", function() {
-      var view = SCTi.Label.create(), tiObject;
+      var view = EmTi.Label.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -27,13 +27,13 @@
     });
   });
   
-  describe("SCTi.TextField", function() {
+  describe("EmTi.TextField", function() {
     it("should be defined", function() {
-      expect(SCTi.TextField).toBeDefined();
+      expect(EmTi.TextField).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.TextField", function() {
-      var view = SCTi.TextField.create(), tiObject;
+      var view = EmTi.TextField.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -41,13 +41,13 @@
     });
   });
   
-  describe("SCTi.Button", function() {
+  describe("EmTi.Button", function() {
     it("should be defined", function() {
-      expect(SCTi.Button).toBeDefined();
+      expect(EmTi.Button).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.Button", function() {
-      var view = SCTi.Button.create(), tiObject;
+      var view = EmTi.Button.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -55,34 +55,34 @@
     });
   });
   
-  describe("SCTi.Tab", function() {
+  describe("EmTi.Tab", function() {
     it("should be defined", function() {
-      expect(SCTi.Tab).toBeDefined();
+      expect(EmTi.Tab).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.Tab", function() {
-      var view = SCTi.Tab.create(), tiObject;
+      var view = EmTi.Tab.create(), tiObject;
       
       tiObject = view.createObject();
       
       expect(tiObject).toBeDefined();
     });
     
-    it("should be able to open a SCTi.Window", function() {
-      var tab = SCTi.Tab.create();
-      var win = SCTi.Window.create();
+    it("should be able to open a EmTi.Window", function() {
+      var tab = EmTi.Tab.create();
+      var win = EmTi.Window.create();
       
       expect(function() { tab.open(win); }).not.toThrow();
     });
   });
   
-  describe("SCTi.TabGroup", function() {
+  describe("EmTi.TabGroup", function() {
     it("should be defined", function() {
-      expect(SCTi.TabGroup).toBeDefined();
+      expect(EmTi.TabGroup).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.TabGroup", function() {
-      var view = SCTi.TabGroup.create(), tiObject;
+      var view = EmTi.TabGroup.create(), tiObject;
       
       tiObject = view.createObject();
       
@@ -90,23 +90,23 @@
     });
     
     it("should be able to add tabs", function() {
-      var view = SCTi.TabGroup.create();
+      var view = EmTi.TabGroup.create();
       
       expect(view.childViews.length).toEqual(0);
     
-      view.add(SCTi.Tab.create());
+      view.add(EmTi.Tab.create());
       expect(view.childViews.length).toEqual(1);
     });
     
     it("should be able to set the active tab", function() {
-      var view = SCTi.TabGroup.create();
+      var view = EmTi.TabGroup.create();
       expect(function() { view.setActiveTab(0); }).not.toThrow();
     });
     
     it("should render tabs when displayed", function() {
-      var view = SCTi.TabGroup.create({
+      var view = EmTi.TabGroup.create({
         childViews: [
-          SCTi.Tab.create()
+          EmTi.Tab.create()
         ]
       });
       
@@ -125,13 +125,13 @@
     });
   });
   
-  describe("SCTi.ImageView", function() {
+  describe("EmTi.ImageView", function() {
     it("should be defined", function() {
-      expect(SCTi.ImageView).toBeDefined();
+      expect(EmTi.ImageView).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.ImageView", function() {
-      var view = SCTi.ImageView.create(), tiView;
+      var view = EmTi.ImageView.create(), tiView;
       
       tiView = view.createObject();
       
@@ -139,13 +139,13 @@
     });
   });
   
-  describe("SCTi.TextArea", function() {
+  describe("EmTi.TextArea", function() {
     it("should be defined", function() {
-      expect(SCTi.TextArea).toBeDefined();
+      expect(EmTi.TextArea).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.TextArea", function() {
-      var view = SCTi.TextArea.create(), tiView;
+      var view = EmTi.TextArea.create(), tiView;
       
       tiView = view.createObject();
       
@@ -153,13 +153,13 @@
     });
   });
   
-  describe("SCTi.AlertDialog", function() {
+  describe("EmTi.AlertDialog", function() {
     it("should be defined", function() {
-      expect(SCTi.AlertDialog).toBeDefined();
+      expect(EmTi.AlertDialog).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.AlertDialog", function() {
-      var view = SCTi.AlertDialog.create(), tiView;
+      var view = EmTi.AlertDialog.create(), tiView;
       
       tiView = view.createObject();
       
@@ -167,13 +167,13 @@
     });
   });
   
-  describe("SCTi.Animation", function() {
+  describe("EmTi.Animation", function() {
     it("should be defined", function() {
-      expect(SCTi.Animation).toBeDefined();
+      expect(EmTi.Animation).toBeDefined();
     });
   
     it("should be able to create a Ti.UI.Animation", function() {
-      var view = SCTi.Animation.create(), tiView;
+      var view = EmTi.Animation.create(), tiView;
       
       tiView = view.createObject();
       
@@ -181,13 +181,13 @@
     });
   });
   
-  describe("SCTi.MapView", function() {
+  describe("EmTi.MapView", function() {
     it("should be defined", function() {
-      expect(SCTi.MapView).toBeDefined();
+      expect(EmTi.MapView).toBeDefined();
     });
   
     it("should be able to create a Ti.Map.MapView", function() {
-      var view = SCTi.MapView.create(), tiView;
+      var view = EmTi.MapView.create(), tiView;
       
       tiView = view.createObject();
       
@@ -195,13 +195,13 @@
     });
   });
   
-  describe("SCTi.MapAnnotation", function() {
+  describe("EmTi.MapAnnotation", function() {
     it("should be defined", function() {
-      expect(SCTi.MapAnnotation).toBeDefined();
+      expect(EmTi.MapAnnotation).toBeDefined();
     });
   
     it("should be able to create a Ti.Map.Annotation", function() {
-      var view = SCTi.MapAnnotation.create(), tiView;
+      var view = EmTi.MapAnnotation.create(), tiView;
       
       tiView = view.createObject();
       

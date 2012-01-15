@@ -1,12 +1,12 @@
 (function() {
-  describe("SCTi.Animatable", function() {
+  describe("EmTi.Animatable", function() {
     it("should be defined", function() {
-      expect(SCTi.Animatable).toBeDefined();
+      expect(EmTi.Animatable).toBeDefined();
     });
     
     it("should animate", function() {
-      var view = SCTi.Object.create(SCTi.Animatable),
-          animation = SCTi.Animation.create(),
+      var view = EmTi.Object.create(EmTi.Animatable),
+          animation = EmTi.Animation.create(),
           wasCalled = false;
           
       view.set('tiObject', {
@@ -18,13 +18,13 @@
     });
   });
   
-  describe("SCTi.Openable", function() {
+  describe("EmTi.Openable", function() {
     it("should be defined", function() {
-      expect(SCTi.Openable).toBeDefined();
+      expect(EmTi.Openable).toBeDefined();
     });
     
     it("should be openable", function() {
-      var view = SCTi.Object.create(SCTi.Openable), wasCalled = false;
+      var view = EmTi.Object.create(EmTi.Openable), wasCalled = false;
       
       view.set('tiObject', {
         open: function() { wasCalled = true; }
@@ -35,7 +35,7 @@
     });
     
     it("should be closable", function() {
-      var view = SCTi.Object.create(SCTi.Openable), wasCalled = false;
+      var view = EmTi.Object.create(EmTi.Openable), wasCalled = false;
       
       view.set('tiObject', {
         close: function() { wasCalled = true; }
@@ -46,13 +46,13 @@
     });
   });
   
-  describe("SCTi.Hideable", function() {
+  describe("EmTi.Hideable", function() {
     it("should be defined", function() {
-      expect(SCTi.Hideable).toBeDefined();
+      expect(EmTi.Hideable).toBeDefined();
     });
     
     it("should be hideable", function() {
-      var view = SCTi.Object.create(SCTi.Hideable), wasCalled = false;
+      var view = EmTi.Object.create(EmTi.Hideable), wasCalled = false;
       
       view.set('tiObject', {
         hide: function() { wasCalled = true; }
@@ -63,7 +63,7 @@
     });
     
     it("should be showable", function() {
-      var view = SCTi.Object.create(SCTi.Hideable), wasCalled = false;
+      var view = EmTi.Object.create(EmTi.Hideable), wasCalled = false;
       
       view.set('tiObject', {
         show: function() { wasCalled = true; }
@@ -74,13 +74,13 @@
     });
   });
   
-  describe("SCTi.Focusable", function() {
+  describe("EmTi.Focusable", function() {
     it("should be defined", function() {
-      expect(SCTi.Focusable).toBeDefined();
+      expect(EmTi.Focusable).toBeDefined();
     });
     
     it("should respond to blur", function() {
-      var view = SCTi.Object.create(SCTi.Focusable),
+      var view = EmTi.Object.create(EmTi.Focusable),
           wasCalled = false;
 
       view.set('tiObject', {
@@ -92,7 +92,7 @@
     });
 
     it("should respond to focus", function() {
-      var view = SCTi.Object.create(SCTi.Focusable),
+      var view = EmTi.Object.create(EmTi.Focusable),
           wasCalled = false;
 
       view.set('tiObject', {
